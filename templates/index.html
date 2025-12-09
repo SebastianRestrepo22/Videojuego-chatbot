@@ -3,73 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente Institucional SENA</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <!-- Highlight.js styles for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+    <title>Asistente IA</title>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo SENA" width="90" height="auto"></div>
-            <div class="header-text">
-                <h1>Asistente Institucional SENA</h1>
-                <p class="subtitle">Haz tus consultas sobre formación y servicios del SENA</p>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- Main Chat Area -->
-        <div class="chat-section">
-            <div class="chat-messages" id="chatMessages">
-                <div class="welcome-message">
-                    <h2>Bienvenido al Asistente SENA</h2>
-                    <p>Haz preguntas sobre programas de formación, servicios y oportunidades del SENA.</p>
-                </div>
-            </div>
-
-            <!-- Input Area -->
-            <div class="input-area">
-                <textarea 
-                    id="messageInput" 
-                    class="message-input" 
-                    placeholder="Escribe tu pregunta aquí..."
-                    rows="3"
-                ></textarea>
-                <button id="sendBtn" class="send-button">Enviar</button>
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-section">
-                <h3>Ejemplos de preguntas permitidas</h3>
-                <ul class="examples-list">
-                    <li>¿Qué programas de formación virtual ofrece el SENA en análisis de datos?</li>
-                    <li>¿Cómo puedo inscribirme a un curso del SENA?</li>
-                    <li>Explícame qué es un proyecto de investigación aplicada en el SENA.</li>
-                    <li>¿Qué servicios ofrece la Agencia Pública de Empleo del SENA?</li>
-                    <li>¿Cómo obtener una certificación por competencias en el SENA?</li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <h3>Política de uso</h3>
-                <p class="policy-text">
-                    Este asistente institucional está diseñado exclusivamente para responder preguntas relacionadas con el SENA, sus programas de formación, servicios y oportunidades. Si tienes preguntas sobre otros temas, te invitamos a consultar otras fuentes de información.
-                </p>
-            </div>
-        </aside>
-    </div>
-
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <!-- Markdown renderer and sanitizer -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
-    <!-- Optional: highlight.js for code syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>if (window.hljs) hljs.configure({ignoreUnescapedHTML: true});</script>
 </body>
 </html>
