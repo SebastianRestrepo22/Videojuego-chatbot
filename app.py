@@ -1,4 +1,3 @@
-
 """agente.app
 
 Aplicación Flask mínima que expone dos rutas:

@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente IA</title>
+  <meta charset="UTF-8">
+  <title>Chatbot de Videojuegos</title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+
+  <h1>Chatbot de Videojuegos 🎮</h1>
+
+  <div id="chat-box" style="
+    border: 1px solid #ccc;
+    height: 300px;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;">
+  </div>
+
+  <form id="chat-form">
+    <input
+      id="message"
+      type="text"
+      placeholder="Escribe sobre videojuegos..."
+      style="width: 80%; padding: 10px;"
+      required
+    />
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script src="/static/app.js"></script>
 </body>
 </html>
