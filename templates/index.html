@@ -2,31 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Chatbot de Videojuegos</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaming AI Assistant</title>
+<link rel="stylesheet" href="/static/styles.css">    
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <h1>🎮 Gaming AI Assistant</h1>
+      <div class="subtitle">Tu experto en videojuegos</div>
+    </div>
 
-  <h1>Chatbot de Videojuegos 🎮</h1>
+    <div id="chat-box">
+      <!-- Mensaje inicial del bot -->
+      <div class="message bot">
+        <div class="message-avatar">🤖</div>
+        <div class="message-content">
+          ¡Hola! Soy tu asistente de videojuegos. Puedo ayudarte con recomendaciones, consejos y todo sobre gaming. ¿En qué te puedo ayudar?
+        </div>
+      </div>
+    </div>
 
-  <div id="chat-box" style="
-    border: 1px solid #ccc;
-    height: 300px;
-    overflow-y: scroll;
-    padding: 10px;
-    margin-bottom: 10px;">
+    <div class="input-area">
+      <form id="chat-form">
+        <input
+          id="message"
+          type="text"
+          placeholder="Escribe sobre videojuegos..."
+          required
+          autocomplete="off"
+        />
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
   </div>
-
-  <form id="chat-form">
-    <input
-      id="message"
-      type="text"
-      placeholder="Escribe sobre videojuegos..."
-      style="width: 80%; padding: 10px;"
-      required
-    />
-    <button type="submit">Enviar</button>
-  </form>
 
   <script src="/static/app.js"></script>
 </body>

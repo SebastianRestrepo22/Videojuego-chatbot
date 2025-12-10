@@ -1,41 +1,76 @@
-// app.js
-// Este archivo contiene la lógica principal de la aplicación web.
-// Aquí se manejan las interacciones del usuario y la comunicación con el backend.
+ // Función para escapar HTML y prevenir XSS
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
 
-const form = document.getElementById("chat-form");
-const input = document.getElementById("message");
-const chatBox = document.getElementById("chat-box");
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("message");
+    const chatBox = document.getElementById("chat-box");
 
-let history = [];
+    let history = [];
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    // Función para agregar mensaje al chat
+    function addMessage(sender, text) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
 
-  const text = input.value.trim();
-  if (!text) return;
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.textContent = sender === 'bot' ? '🤖' : '👤';
 
-  // Mostrar mensaje del usuario
-  chatBox.innerHTML += `<div><strong>Tú:</strong> ${text}</div>`;
+      const content = document.createElement('div');
+      content.className = 'message-content';
+      content.innerHTML = escapeHtml(text); // Seguro contra XSS
 
-  // Enviar al backend
-  const res = await fetch("/api/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text, history })
-  });
+      messageDiv.appendChild(sender === 'bot' ? avatar : content);
+      messageDiv.appendChild(sender === 'bot' ? content : avatar);
 
-  const data = await res.json();
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-  if (data.success) {
-    chatBox.innerHTML += `<div><strong>Bot:</strong> ${data.response}</div>`;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    // Actualizar historial
-    history.push({ sender: "Usuario", text });
-    history.push({ sender: "Bot", text: data.response });
-  } else {
-    chatBox.innerHTML += `<div style="color:red;">Error: ${data.error}</div>`;
-  }
+      const text = input.value.trim();
+      if (!text) return;
 
-  input.value = "";
-  chatBox.scrollTop = chatBox.scrollHeight;
-});
+      // Mostrar mensaje del usuario
+      addMessage('user', text);
+
+      // Limpiar y deshabilitar input temporalmente
+      input.value = '';
+      input.disabled = true;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history })
+        });
+
+        if (!res.ok) throw new Error("Error de red");
+
+        const data = await res.json();
+
+        if (data.success) {
+          addMessage('bot', data.response);
+          history.push({ sender: "Usuario", text });
+          history.push({ sender: "Bot", text: data.response });
+        } else {
+          addMessage('bot', `Error: ${data.error || "Algo salió mal"}`);
+        }
+      } catch (err) {
+        addMessage('bot', "No se pudo conectar con el servidor. ¿Está corriendo tu backend?");
+        console.error("Error en la solicitud:", err);
+      } finally {
+        input.disabled = false;
+        submitBtn.textContent = originalText;
+        input.focus();
+      }
+    });
